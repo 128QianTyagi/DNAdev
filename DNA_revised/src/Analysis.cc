@@ -4,14 +4,18 @@
 // }
 
 std::map<std::string, int> Analysis::find_count() {
-    for (std::string s : strs)
+    for (std::string s : person_collector.get_strs())
         std::cout << s << "\n";
+
+    std::vector<std::string> strs = person_collector.get_strs();
 
     std::string temp = "";
     std::map<std::string, int> count;
-    count[strs[0]] = 0;
-    count[strs[1]] = 0;
-    count[strs[2]] = 0;
+    // count[strs[0]] = 0;
+    // count[strs[1]] = 0;
+    // count[strs[2]] = 0;
+    for (const std::string & s : strs)
+        count[s] = 0;
     //std::string strand_s = strand.get_dna_sequence();
     //max is one as if it finds the first instance, it does not count it as the prev is not the same
     int max = 1;
@@ -48,9 +52,11 @@ int Analysis::check_match(std::vector<std::string> string_list, std::string chec
 }
 
 bool Analysis::find_diff(Person person, std::map<std::string, int> count) {
+    std::vector<std::string> strs = person_collector.get_strs();
     int index = 0;
     for (size_t i = 0; i < strs.size(); i++) {
-        if (person.get_values(strs[i]) != count.find(strs[i]) -> second) {
+        if (person.get_values(strs[i]) != count.find(strs[i])->second) {
+
             return false;
         }
         index++;
@@ -60,6 +66,7 @@ bool Analysis::find_diff(Person person, std::map<std::string, int> count) {
 
 std::string Analysis::find_match(std::map<std::string, int> count) {
     std::string result = "No Match";
+    std::vector<Person> people = person_collector.get_persons();
     for (size_t i = 0; i < people.size(); i++) {
         if (find_diff(people[i], count)) {
             if (result == "No Match") {

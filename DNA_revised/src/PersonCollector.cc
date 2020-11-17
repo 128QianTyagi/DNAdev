@@ -9,7 +9,7 @@ PersonCollector::PersonCollector(const std::string & filename) {
     std::getline(input_file, attribute_line);
 
     // Split the first line by commas
-    std::vector<std::string> strs = split_line(attribute_line, ',');
+    strs = split_line(attribute_line, ',');
 
     // Erase the first element so we now have a vector of the STRS
     strs.erase(strs.begin());
@@ -25,6 +25,10 @@ PersonCollector::PersonCollector(const std::string & filename) {
 
 std::vector<Person> PersonCollector::get_persons() const {
     return person_vector;
+}
+
+std::vector<std::string> PersonCollector::get_strs() const {
+    return strs;
 }
 
 Person PersonCollector::create_person(std::string input_line, std::vector<std::string> strs) {

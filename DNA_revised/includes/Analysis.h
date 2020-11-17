@@ -12,7 +12,7 @@ class Analysis {
          *  Constructor for Analysis class
          * @param given_people A vector of people to analyze 
          */
-        Analysis(const PersonCollector & collector) : person_collector(collector) {};
+        Analysis(const PersonCollector & collector, const std::string & dna_strand) : person_collector(collector), strand(dna_strand) {};
 
         /**
          * Check if the DNA map belongs to a particular person
@@ -45,8 +45,8 @@ class Analysis {
         int check_match(std::vector<std::string> string_list, std::string check);
         
     private:
-        std::vector<Person> people;
-        std::vector<std::string> strs;
+        // std::vector<Person> people;
+        // std::vector<std::string> strs;
         std::string strand;
         PersonCollector person_collector;
 };

@@ -1,6 +1,6 @@
 #include "../includes/Analysis.h"
-#include "../includes/Person.h"
 #include "../includes/PersonCollector.h"
+#include "../includes/Person.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -49,15 +49,19 @@ int main(int argc, char * argv[]) {
 
     // Analysis analyzer = Analysis(vec);
 
-    std::vector<Person> people = CSVReader::process_file(argv[1]);
-    // for (Person & p : people) {
-    //     std::cout << p.get_name() << "\n";\
-    //     std::map<std::string, int> map = p.get_values();
-    //     for (auto it = map.begin(); it != map.end(); ++it)
-    //         std::cout << it->first << " , " << it->second << "\n";
-    // }
+    // std::vector<Person> people = CSVReader::process_file(argv[1]);
+    // // for (Person & p : people) {
+    // //     std::cout << p.get_name() << "\n";\
+    // //     std::map<std::string, int> map = p.get_values();
+    // //     for (auto it = map.begin(); it != map.end(); ++it)
+    // //         std::cout << it->first << " , " << it->second << "\n";
+    // // }
 
-    Analysis analyze(people);
-    std::map<std::string, int> count = analyze.find_count(argv[2]);
+    PersonCollector collector = PersonCollector(argv[1]);
+    Analysis analyze(collector, argv[2]);
+    std::map<std::string, int> count = analyze.find_count();
+    for (auto it = count.begin(); it != count.end(); ++it)
+        std::cout << it->first << " , " << it->second << "\n";
     std::cout << analyze.find_match(count) << std::endl;
+    
 }
