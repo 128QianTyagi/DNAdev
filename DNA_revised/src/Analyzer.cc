@@ -1,9 +1,9 @@
-#include "../includes/Analysis.h"
+#include "../includes/Analyzer.h"
 
-// Analysis::Analysis(std::vector<Person> given_people, const std::string dna) {
+// Analyzer::Analyzer(std::vector<Person> given_people, const std::string dna) {
 // }
 
-std::map<std::string, int> Analysis::find_count() {
+std::map<std::string, int> Analyzer::find_count() {
     for (std::string s : person_collector.get_strs())
         std::cout << s << "\n";
 
@@ -42,7 +42,7 @@ std::map<std::string, int> Analysis::find_count() {
     return count;
 } 
 
-int Analysis::check_match(std::vector<std::string> string_list, std::string check) {
+int Analyzer::check_match(std::vector<std::string> string_list, std::string check) {
     for (int i = 0; i < (int)string_list.size(); i++) {
         if (check == string_list[i]) {
             return i;
@@ -51,7 +51,7 @@ int Analysis::check_match(std::vector<std::string> string_list, std::string chec
     return -1;
 }
 
-bool Analysis::find_diff(Person person, std::map<std::string, int> count) {
+bool Analyzer::find_diff(Person person, std::map<std::string, int> count) {
     std::vector<std::string> strs = person_collector.get_strs();
     int index = 0;
     for (size_t i = 0; i < strs.size(); i++) {
@@ -64,7 +64,7 @@ bool Analysis::find_diff(Person person, std::map<std::string, int> count) {
     return true;
 }
 
-std::string Analysis::find_match(std::map<std::string, int> count) {
+std::string Analyzer::find_match(std::map<std::string, int> count) {
     std::string result = "No Match";
     std::vector<Person> people = person_collector.get_persons();
     for (size_t i = 0; i < people.size(); i++) {

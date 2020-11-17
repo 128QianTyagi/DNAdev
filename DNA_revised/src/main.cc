@@ -1,4 +1,4 @@
-#include "../includes/Analysis.h"
+#include "../includes/Analyzer.h"
 #include "../includes/PersonCollector.h"
 #include "../includes/Person.h"
 #include <iostream>
@@ -35,7 +35,7 @@ int main(int argc, char * argv[]) {
     // std::vector<Person> people = csvReader(std::fstream(argv[1]));
     // input_file.close();
     
-    // Analysis analyze(people);
+    // Analyzer analyze(people);
     // std::map<std::string, int> test = analyze.find_count(argv[2]);
     //std::cout << test.find([""]);
     // std::unordered_map<std::string, int> parth_map;
@@ -47,7 +47,7 @@ int main(int argc, char * argv[]) {
 
     // std::vector<Person> vec = {parth, daniel};
 
-    // Analysis analyzer = Analysis(vec);
+    // Analyzer analyzer = Analyzer(vec);
 
     // std::vector<Person> people = CSVReader::process_file(argv[1]);
     // // for (Person & p : people) {
@@ -58,7 +58,7 @@ int main(int argc, char * argv[]) {
     // // }
 
     PersonCollector collector = PersonCollector(argv[1]);
-    Analysis analyze(collector, argv[2]);
+    Analyzer analyze(collector, argv[2]);
     std::map<std::string, int> count = analyze.find_count();
     for (auto it = count.begin(); it != count.end(); ++it)
         std::cout << it->first << " , " << it->second << "\n";

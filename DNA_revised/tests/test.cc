@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "../includes/Analysis.h"
+#include "../includes/Analyzer.h"
 
 TEST_CASE("Find Michael 1", "[weight=1]") {
     std::map<std::string, int> m_values;
@@ -22,7 +22,7 @@ TEST_CASE("Find Michael 1", "[weight=1]") {
 
     std::vector<Person> people = {m, r, n};
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCAATGAATGCCAATAGACAAAA";
-    Analysis analyze(people);
+    Analyzer analyze(people);
     std::string name = analyze.find_match(analyze.find_count(test));
     REQUIRE(name=="Michael");
 }
@@ -48,7 +48,7 @@ TEST_CASE("Find Reese 1", "[weight=1]") {
 
     std::vector<Person> people = {m, r, n};
     std::string test = "AACCCTGCGCGCGCGCGATCTATCTATCTATCTATCCAGCATTAGCTAGCATCAAGATAGATAGATGAATTTCGAAATGAATGAATGAATGAATGAATGAATG";
-    Analysis analyze(people);
+    Analyzer analyze(people);
     std::string name = analyze.find_match(analyze.find_count(test));
     REQUIRE(name=="Reese");
 }
@@ -74,7 +74,7 @@ TEST_CASE("Find Nathan 1", "[weight=1]") {
 
     std::vector<Person> people = {m, r, n};
     std::string test = "CCAGATAGATAGATAGATAGATAGATGTCACAGGGATGCTGAGGGCTGCTTCGTACGTACTCCTGATTTCGGGGATCGCTGACACTAATGCGTGCGAGCGGATCGATCTCTATCTATCTATCTATCTATCCTATAGCATAGACATCCAGATAGATAGATC";
-    Analysis analyze(people);
+    Analyzer analyze(people);
     std::string name = analyze.find_match(analyze.find_count(test));
     REQUIRE(name=="Nathan");
 }
@@ -100,7 +100,7 @@ TEST_CASE("Find Fake Michael", "[weight=1]") {
 
     std::vector<Person> people = {m, r, n};
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCCCAATAGACAAAA";
-    Analysis analyze(people);
+    Analyzer analyze(people);
     std::string name = analyze.find_match(analyze.find_count(test));
     REQUIRE(name == "No Match");
     
@@ -135,7 +135,7 @@ TEST_CASE("Find Fake Reese", "[weight=1]") {
 
     std::vector<Person> people = {m, r, n};
     std::string test = "AACCCTGCGCGCGCGCGATCTATCTATCTATCTATCCAGCATTAGCTAGCATCAAGATAGATAGATGAATTTCGAAATGAATGAATGAATGAATGAATGAATG";
-    Analysis analyze(people);
+    Analyzer analyze(people);
     std::string name = analyze.find_match(analyze.find_count(test));
     REQUIRE(name=="Reese");
 
@@ -169,7 +169,7 @@ TEST_CASE("Find Fake Nathan", "[weight=1]") {
 
     std::vector<Person> people = {m, r, n};
     std::string test = "CCGTCACAGGGATGCTGAGGGCTGCTTCGTACGTACTCCTGATTTCGGGGATCGCTGACACTAATGCGTGCGAGCGGATCGATCTCTATCTATCTATCTATCTATCCTATAGCATAGACATCCAGATAGATAGATC";
-    Analysis analyze(people);
+    Analyzer analyze(people);
     std::string name = analyze.find_match(analyze.find_count(test));
     REQUIRE(name=="No Match");
 
@@ -204,7 +204,7 @@ TEST_CASE("Find Ambiguous", "[weight=1]") {
 
     std::vector<Person> people = {m, r, n};
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCAATGAATGCCAATAGACAAAA";
-    Analysis analyze(people);
+    Analyzer analyze(people);
     std::string name = analyze.find_match(analyze.find_count(test));
     REQUIRE(name=="Ambiguous Match");
 }

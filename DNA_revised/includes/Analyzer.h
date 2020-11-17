@@ -6,13 +6,13 @@
 #include <vector>
 #include <map>
 
-class Analysis {
+class Analyzer {
     public:
         /**
-         *  Constructor for Analysis class
+         *  Constructor for Analyzer class
          * @param given_people A vector of people to analyze 
          */
-        Analysis(const PersonCollector & collector, const std::string & dna_strand) : person_collector(collector), strand(dna_strand) {};
+        Analyzer(const PersonCollector & collector, const std::string & dna_strand) : person_collector(collector), strand(dna_strand) {};
 
         /**
          * Check if the DNA map belongs to a particular person
