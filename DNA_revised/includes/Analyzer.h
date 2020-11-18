@@ -1,5 +1,4 @@
 #pragma once
-#include "../includes/PersonCollector.h"
 #include "Person.h"
 #include "PersonCollector.h"
 #include <iostream>
@@ -12,7 +11,7 @@ class Analyzer {
          *  Constructor for Analyzer class
          * @param given_people A vector of people to analyze 
          */
-        Analyzer(const PersonCollector & collector, const std::string & dna_strand) : person_collector(collector), strand(dna_strand) {};
+        Analyzer(const PersonCollector & collector, const std::string & dna_strand);
 
         /**
          * Check if the DNA map belongs to a particular person

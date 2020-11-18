@@ -1,7 +1,6 @@
 #include "../includes/Analyzer.h"
 
-// Analyzer::Analyzer(std::vector<Person> given_people, const std::string dna) {
-// }
+Analyzer::Analyzer(const PersonCollector & collector, const std::string & dna_strand) : person_collector(collector), strand(dna_strand) {}
 
 std::map<std::string, int> Analyzer::find_count() {
     for (std::string s : person_collector.get_strs())
@@ -22,9 +21,9 @@ std::map<std::string, int> Analyzer::find_count() {
     int same = 0;
     int prev = -1;
     for (int j = 0; j < (int)strs[0].length(); j++) {
-        for (int i = j; i < (int)strand.length(); i+=4) {
+        for (int i = j; i < (int)strand.length(); i+=strs[0].length()) {
             temp = "";
-            temp = strand.substr(i, 4);
+            temp = strand.substr(i, strs[0].length());
             same = check_match(strs, temp);
             if (same > -1) {
                 if (prev == same) {
