@@ -5,33 +5,39 @@ CXXFLAGS = -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
 LD = clang++
 LDFLAGS = -std=c++1y -stdlib=libc++ -lc++abi -lm
 
-.PHONY: all test clean
+.PHONY: all test stest clean
 
 all : $(EXENAME)
 
-$(EXENAME): main.o DNA.o People.o Analysis.o
-	$(LD) main.o DNA.o People.o Analysis.o $(LDFLAGS) -o $(EXENAME)
+$(EXENAME): main.o Person.o Analyzer.o PersonCollector.o
+	$(LD) main.o Person.o Analyzer.o PersonCollector.o $(LDFLAGS) -o $(EXENAME)
 
-main.o : main.cc DNA.h People.h Analysis.h
-	$(CXX) $(CXXFLAGS) main.cc
+main.o : src/main.cc includes/Person.h includes/Analyzer.h includes/PersonCollector.h
+	$(CXX) $(CXXFLAGS) src/main.cc
 
-DNA.o : DNA.cc DNA.h
-	$(CXX) $(CXXFLAGS) DNA.cc
+PersonCollector.o: src/PersonCollector.cc includes/PersonCollector.h
+	$(CXX) $(CXXFLAGS) src/PersonCollector.cc
 
-People.o : People.cc People.h
-	$(CXX) $(CXXFLAGS) People.cc
+Person.o : src/Person.cc includes/Person.h
+	$(CXX) $(CXXFLAGS) src/Person.cc
 
-Analysis.o : Analysis.cc Analysis.h
-	$(CXX) $(CXXFLAGS) Analysis.cc
+Analyzer.o : src/Analyzer.cc includes/Analyzer.h
+	$(CXX) $(CXXFLAGS) src/Analyzer.cc
 
-test: catchmain.o tests.o DNA.o People.o Analysis.o
-	$(LD) catchmain.o tests.o DNA.o People.o Analysis.o $(LDFLAGS) -o test
+test: catchmain.o test.o Person.o Analyzer.o
+	$(LD) catchmain.o test.o Person.o Analyzer.o $(LDFLAGS) -o test
 
-catchmain.o : catch/catchmain.cc catch/catch.hpp
-	$(CXX) $(CXXFLAGS) catch/catchmain.cc
+stest: catchmain.o separatetest.o Person.o Analyzer.o PersonCollector.o
+	$(LD) catchmain.o separatetest.o Person.o Analyzer.o PersonCollector.o $(LDFLAGS) -o stest
 
-tests.o : tests/tests.cc catch/catch.hpp main.cc
-	$(CXX) $(CXXFLAGS) tests/tests.cc
+catchmain.o : tests/catchmain.cc tests/catch.hpp
+	$(CXX) $(CXXFLAGS) tests/catchmain.cc
+
+test.o : tests/test.cc tests/catch.hpp src/main.cc
+	$(CXX) $(CXXFLAGS) tests/test.cc
+
+separatetest.o : tests/separatetest.cc tests/catch.hpp src/main.cc
+	$(CXX) $(CXXFLAGS) tests/separatetest.cc
 
 clean:
 	rm -f *.o $(EXENAME) test
