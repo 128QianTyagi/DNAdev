@@ -8,7 +8,7 @@
 
 TEST_CASE("Find Michael 1", "[weight=1]") {
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCAATGAATGCCAATAGACAAAA";
-    PersonCollector people = PersonCollector("/Users/daqian/Documents/DNA_trial/DNA_revised/tests/datum/MRN_set.csv");
+    PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     Analyzer analyze(people, test);
     std::map<std::string, int> count = analyze.find_count();
     std::string name = analyze.find_match(count);
@@ -17,7 +17,7 @@ TEST_CASE("Find Michael 1", "[weight=1]") {
 
 TEST_CASE("Find Reese 1", "[weight=1]") {
     std::string test = "AACCCTGCGCGCGCGCGATCTATCTATCTATCTATCCAGCATTAGCTAGCATCAAGATAGATAGATGAATTTCGAAATGAATGAATGAATGAATGAATGAATG";
-    PersonCollector people = PersonCollector("/Users/daqian/Documents/DNA_trial/DNA_revised/tests/datum/MRN_set.csv");
+    PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     Analyzer analyze(people, test);
     std::string name = analyze.find_match(analyze.find_count());
     REQUIRE(name=="Reese");
@@ -25,7 +25,7 @@ TEST_CASE("Find Reese 1", "[weight=1]") {
 
 
 TEST_CASE("Find Nathan 1", "[weight=1]") {
-    PersonCollector people = PersonCollector("/Users/daqian/Documents/DNA_trial/DNA_revised/tests/datum/MRN_set.csv");
+    PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "CCAGATAGATAGATAGATAGATAGATGTCACAGGGATGCTGAGGGCTGCTTCGTACGTACTCCTGATTTCGGGGATCGCTGACACTAATGCGTGCGAGCGGATCGATCTCTATCTATCTATCTATCTATCCTATAGCATAGACATCCAGATAGATAGATC";
     Analyzer analyze(people, test);
     std::string name = analyze.find_match(analyze.find_count());
@@ -33,7 +33,7 @@ TEST_CASE("Find Nathan 1", "[weight=1]") {
 }
 
 TEST_CASE("Find Fake Michael", "[weight=1]") {
-    PersonCollector people = PersonCollector("/Users/daqian/Documents/DNA_trial/DNA_revised/tests/datum/MRN_set.csv");
+    PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCCCAATAGACAAAA";
     Analyzer analyze1(people, test);
     std::string name = analyze1.find_match(analyze1.find_count());
@@ -53,7 +53,7 @@ TEST_CASE("Find Fake Michael", "[weight=1]") {
 
 
 TEST_CASE("Find Fake Reese", "[weight=1]") {
-    PersonCollector people = PersonCollector("/Users/daqian/Documents/DNA_trial/DNA_revised/tests/datum/MRN_set.csv");
+    PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "AACCCTGCGCGCGCGCGATCTATCTATCTATCTATCCAGCATTAGCTAGCATCAGAATTTCGAAATGAATGAATGAATGAATGAATGAATG";
     Analyzer analyze1(people, test);
     std::string name = analyze1.find_match(analyze1.find_count());
@@ -71,7 +71,7 @@ TEST_CASE("Find Fake Reese", "[weight=1]") {
 }
 
 TEST_CASE("Find Fake Nathan", "[weight=1]") {
-    PersonCollector people = PersonCollector("/Users/daqian/Documents/DNA_trial/DNA_revised/tests/datum/MRN_set.csv");
+    PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "CCGTCACAGGGATGCTGAGGGCTGCTTCGTACGTACTCCTGATTTCGGGGATCGCTGACACTAATGCGTGCGAGCGGATCGATCTCTATCTATCTATCTATCTATCCTATAGCATAGACATCCAGATAGATAGATC";
     Analyzer analyze1(people, test);
     std::string name = analyze1.find_match(analyze1.find_count());
@@ -90,7 +90,7 @@ TEST_CASE("Find Fake Nathan", "[weight=1]") {
 }
 
 TEST_CASE("Find Ambiguous", "[weight=1]") {
-    PersonCollector people = PersonCollector("/Users/daqian/Documents/DNA_trial/DNA_revised/tests/datum/AMB_set.csv");
+    PersonCollector people = PersonCollector("tests/datum/AMB_set.csv");
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCAATGAATGCCAATAGACAAAA";
     Analyzer analyze(people, test);
     std::string name = analyze.find_match(analyze.find_count());

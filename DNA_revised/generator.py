@@ -3,7 +3,7 @@ import os
 from copy import deepcopy
 
 alphabet = ["A", "T", "G", "C"]
-str_list = ["AGAT", "AATG", "TATC", "CATG", "TTCA", "ACAG"]
+str_list = ["AGATT", "CAATG", "CTATC", "TCATG", "TTACA", "ACAGT"]
 people_list = ["Alice", "Bob", "Charlie", "Parth", "George", "John", "Thomas", "James", "Andrew", "Abraham", "Theodore", "Franklin", "Harry", "Dwight"]
 
 

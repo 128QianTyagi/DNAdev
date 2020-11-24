@@ -2,4 +2,5 @@
 *.vscode
 *.dSYM*
 test
+helpertest
 main

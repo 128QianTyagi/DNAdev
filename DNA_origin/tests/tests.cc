@@ -1,5 +1,4 @@
 #include "../catch/catch.hpp"
-#include "../includes/DNA.h"
 #include "../includes/Analysis.h"
 
 TEST_CASE("Find Difference 1", "[weight=1]") {
