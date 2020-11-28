@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "../includes/Analysis.h"
-#include "../includes/CSVReader.h"
+#include "../includes/Analyzer.h"
+#include "../includes/PersonCollector.h"
 
 TEST_CASE("CSVReader get_person works", "[weight=1]") {
     std::vector<std::string> strs = {"AGAT", "TAGC", "AACT"};

@@ -12,15 +12,13 @@ class Analyzer {
          *  Constructor for Analyzer class
          * @param given_people A vector of people to analyze 
          */
-        Analyzer(const PersonCollector & collector, const std::string & dna_strand);
+        Analyzer(PersonCollector collector, const std::string & dna_strand);
         
         /**
          * Find which index a particular string occurs in a vector
-         * @param string_list A vector of strings
-         * @param check The string to check
-         * @return The index at which the string occurs
+         * @return The name of the person who matches the DNA
          */
-        int check_match(std::vector<std::string> string_list, std::string check);
+        std::string analyze() const;
         
     private:
         std::string strand;

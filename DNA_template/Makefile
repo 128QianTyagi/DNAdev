@@ -24,8 +24,8 @@ Person.o : src/Person.cc includes/Person.h
 Analyzer.o : src/Analyzer.cc includes/Analyzer.h
 	$(CXX) $(CXXFLAGS) src/Analyzer.cc
 
-test: catchmain.o test.o Person.o Analyzer.o
-	$(LD) catchmain.o test.o Person.o Analyzer.o $(LDFLAGS) -o test
+test: catchmain.o test.o Person.o Analyzer.o PersonCollector.o
+	$(LD) catchmain.o test.o Person.o Analyzer.o PersonCollector.o $(LDFLAGS) -o test
 
 stest: catchmain.o separatetest.o Person.o Analyzer.o PersonCollector.o
 	$(LD) catchmain.o separatetest.o Person.o Analyzer.o PersonCollector.o $(LDFLAGS) -o stest
