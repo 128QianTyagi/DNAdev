@@ -1,0 +1,6 @@
+*.o
+*.vscode
+*.dSYM*
+test
+helpertest
+main
