@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include "../includes/Person.h"
+#include "../includes/Utilities.h"
 
 class PersonCollector {
     public:
@@ -12,6 +13,4 @@ class PersonCollector {
     private:
         std::vector<Person> person_vector;
         std::vector<std::string> strs;
-        std::vector<std::string> split_line(std::string input, char delimiter);
-        Person create_person(std::string input_line, std::vector<std::string> strs);
 };
