@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 
-TEST_CASE("Find Michael 1", "[weight=1]") {
+TEST_CASE("Find Michael 1", "[Match]") {
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCAATGAATGCCAATAGACAAAA";
     PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     Analyzer analyze(people, test);
@@ -14,7 +14,7 @@ TEST_CASE("Find Michael 1", "[weight=1]") {
     REQUIRE(name=="Michael");
 }
 
-TEST_CASE("Find Reese 1", "[weight=1]") {
+TEST_CASE("Find Reese 1", "[Match]") {
     std::string test = "AACCCTGCGCGCGCGCGATCTATCTATCTATCTATCCAGCATTAGCTAGCATCAAGATAGATAGATGAATTTCGAAATGAATGAATGAATGAATGAATGAATG";
     PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     Analyzer analyze(people, test);
@@ -23,7 +23,7 @@ TEST_CASE("Find Reese 1", "[weight=1]") {
 }
 
 
-TEST_CASE("Find Nathan 1", "[weight=1]") {
+TEST_CASE("Find Nathan 1", "[Match]") {
     PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "CCAGATAGATAGATAGATAGATAGATGTCACAGGGATGCTGAGGGCTGCTTCGTACGTACTCCTGATTTCGGGGATCGCTGACACTAATGCGTGCGAGCGGATCGATCTCTATCTATCTATCTATCTATCCTATAGCATAGACATCCAGATAGATAGATC";
     Analyzer analyze(people, test);
@@ -31,7 +31,7 @@ TEST_CASE("Find Nathan 1", "[weight=1]") {
     REQUIRE(name=="Nathan");
 }
 
-TEST_CASE("Find Fake Michael", "[weight=1]") {
+TEST_CASE("Find Fake Michael", "[Edge]") {
     PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCCCAATAGACAAAA";
     Analyzer analyze1(people, test);
@@ -47,11 +47,10 @@ TEST_CASE("Find Fake Michael", "[weight=1]") {
     Analyzer analyze3(people, test);
     name = analyze3.analyze();
     REQUIRE(name == "No Match");
-
 }
 
 
-TEST_CASE("Find Fake Reese", "[weight=1]") {
+TEST_CASE("Find Fake Reese", "[Edge]") {
     PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "AACCCTGCGCGCGCGCGATCTATCTATCTATCTATCCAGCATTAGCTAGCATCAGAATTTCGAAATGAATGAATGAATGAATGAATGAATG";
     Analyzer analyze1(people, test);
@@ -69,7 +68,7 @@ TEST_CASE("Find Fake Reese", "[weight=1]") {
     REQUIRE(name=="No Match");
 }
 
-TEST_CASE("Find Fake Nathan", "[weight=1]") {
+TEST_CASE("Find Fake Nathan", "[Edge]") {
     PersonCollector people = PersonCollector("tests/datum/MRN_set.csv");
     std::string test = "CCGTCACAGGGATGCTGAGGGCTGCTTCGTACGTACTCCTGATTTCGGGGATCGCTGACACTAATGCGTGCGAGCGGATCGATCTCTATCTATCTATCTATCTATCCTATAGCATAGACATCCAGATAGATAGATC";
     Analyzer analyze1(people, test);
@@ -85,10 +84,9 @@ TEST_CASE("Find Fake Nathan", "[weight=1]") {
     Analyzer analyze3(people, test);
     name = analyze3.analyze();
     REQUIRE(name=="No Match");
-    
 }
 
-TEST_CASE("Find Ambiguous", "[weight=1]") {
+TEST_CASE("Find Ambiguous", "[Ambiguous]") {
     PersonCollector people = PersonCollector("tests/datum/AMB_set.csv");
     std::string test = "AGACGGGTTACCATGACTATCTATCTATCTATCTATCTATCTATCTATCACGTACGTACGTATCGAGATAGATAGATAGATAGATCCTCGACTTCGATCGCAATGAATGCCAATAGACAAAA";
     Analyzer analyze(people, test);
