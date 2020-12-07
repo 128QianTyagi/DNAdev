@@ -23,11 +23,11 @@ PersonCollector::PersonCollector(const std::string & filename) {
     input_file.close();
 }
 
-std::vector<Person> PersonCollector::get_persons() const {
+const std::vector<Person> & PersonCollector::get_persons() const {
     return person_vector;
 }
 
-std::vector<std::string> PersonCollector::get_strs() const {
+const std::vector<std::string> & PersonCollector::get_strs() const {
     return strs;
 }
 

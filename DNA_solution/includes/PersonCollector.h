@@ -7,8 +7,8 @@
 class PersonCollector {
     public:
         PersonCollector(const std::string & filename);
-        std::vector<Person> get_persons() const;
-        std::vector<std::string> get_strs() const;
+        const std::vector<Person> & get_persons() const;
+        const std::vector<std::string> & get_strs() const;
     private:
         std::vector<Person> person_vector;
         std::vector<std::string> strs;
