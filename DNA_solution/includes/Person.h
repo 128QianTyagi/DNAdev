@@ -26,6 +26,6 @@ class Person {
         */
         int get_values(std::string str) const;
     private:
-        std::map<std::string, int> str_map;
-        std::string name;
+        std::map<std::string, int> str_map_;
+        std::string name_;
 };

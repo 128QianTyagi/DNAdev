@@ -1,12 +1,12 @@
 #include "../includes/Analyzer.h"
 
-Analyzer::Analyzer(const PersonCollector & collector, const std::string & dna_strand) : strand(dna_strand), person_collector(collector) {}
+Analyzer::Analyzer(const PersonCollector & collector, const std::string & dna_strand) : strand_(dna_strand), person_collector_(collector) {}
 
 std::map<std::string, int> Analyzer::find_count() {
-    for (std::string s : person_collector.get_strs())
+    for (std::string s : person_collector_.get_strs())
         std::cout << s << "\n";
 
-    std::vector<std::string> strs = person_collector.get_strs();
+    std::vector<std::string> strs = person_collector_.get_strs();
 
     std::string temp = "";
     std::map<std::string, int> count;
@@ -16,9 +16,9 @@ std::map<std::string, int> Analyzer::find_count() {
     int same = 0;
     int prev = -1;
     for (int j = 0; j < (int)strs[0].length(); j++) {
-        for (int i = j; i < (int)strand.length(); i+=strs[0].length()) {
+        for (int i = j; i < (int)strand_.length(); i+=strs[0].length()) {
             temp = "";
-            temp = strand.substr(i, strs[0].length());
+            temp = strand_.substr(i, strs[0].length());
             same = check_match(strs, temp);
             if (same > -1) {
                 if (prev == same) {
@@ -46,7 +46,7 @@ int Analyzer::check_match(std::vector<std::string> string_list, std::string chec
 }
 
 bool Analyzer::find_diff(Person person, std::map<std::string, int> count) {
-    std::vector<std::string> strs = person_collector.get_strs();
+    std::vector<std::string> strs = person_collector_.get_strs();
     int index = 0;
     for (size_t i = 0; i < strs.size(); i++) {
         if (person.get_values(strs[i]) != count.find(strs[i])->second) {
@@ -58,19 +58,26 @@ bool Analyzer::find_diff(Person person, std::map<std::string, int> count) {
     return true;
 }
 
-std::string Analyzer::analyze() {
+Person& Analyzer::analyze() {
     std::map<std::string, int> count = find_count();
     std::string result = "No Match";
-    std::vector<Person> people = person_collector.get_persons();
+    std::vector<Person> people = person_collector_.get_persons();
+    Person& p = people[0];
     for (size_t i = 0; i < people.size(); i++) {
         if (find_diff(people[i], count)) {
             if (result == "No Match") {
+                p = people[i];
                 result = people[i].get_name();
             } else {
-                return "Ambiguous Match";
+                result = "Ambiguous Match";
+                throw result;
             }
         }
     }
-    return result;
+    
+    if (result == "No Match") {
+        throw result;
+    }
+    return p;
 }
 

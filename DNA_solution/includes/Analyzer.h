@@ -26,7 +26,7 @@ class Analyzer {
          * @param count The map of DNA and occurences
          * @return The name which the person the map belongs to 
          */
-        std::string analyze();
+        Person& analyze();
 
         /**
          * Create a map of STRs and their occurences
@@ -46,6 +46,6 @@ class Analyzer {
     private:
         // std::vector<Person> people;
         // std::vector<std::string> strs;
-        std::string strand;
-        PersonCollector person_collector;
+        std::string strand_;
+        PersonCollector person_collector_;
 };

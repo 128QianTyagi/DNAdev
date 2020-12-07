@@ -13,6 +13,10 @@ int main(int argc, char * argv[]) {
 
     PersonCollector collector = PersonCollector(argv[1]);
     Analyzer analyze(collector, argv[2]);
-    std::string count = analyze.analyze();
-    std::cout << count << std::endl;
+    try {
+        Person& count = analyze.analyze();
+        std::cout << count.get_name() << std::endl;
+    } catch (std::string e) {
+        std::cout << e << std::endl;
+    }
 }
