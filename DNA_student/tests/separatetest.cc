@@ -2,47 +2,32 @@
 #include "../includes/Analyzer.h"
 #include "../includes/PersonCollector.h"
 
-TEST_CASE("CSVReader get_person works", "[weight=1]") {
-    std::vector<std::string> strs = {"AGAT", "TAGC", "AACT"};
-    std::string line = "Michael,1,2,3";
-    std::map<std::string, int> map;
-    map["AGAT"] = 1;
-    map["TAGC"] = 2;
-    map["AACT"] = 3;
-    Person p = Person(map, "Michael");
-    Person generatedPerson = CSVReader::get_person(line, strs);
-    if (p.get_name() != generatedPerson.get_name())
-        FAIL("CSVReader -- get_person fails to set name properly");
-    if (p.get_values() != generatedPerson.get_values())
-        FAIL("CSVReader -- get_person fails to set value map properly");
+TEST_CASE("PersonCollector parses the correct STRS", "[personcollector-str][weight=1]") {
+    std::vector<std::string> strs = {"AGTC","TGCA","TGCT","GCAT","GGAT"};
+    PersonCollector collector = PersonCollector("tests/tests_part1_1.csv");
+    if (collector.get_strs() != strs)
+        FAIL("PersonCollector does not parse STRS properly");
     REQUIRE(true);
 }
 
-TEST_CASE("CSVReader get_person works 2", "[weight=1]") {
-    std::vector<std::string> strs = {"AGAT", "TAGC", "AACT", "GACA", "CCTG", "ATGC"};
-    std::string line = "Michael,1,2,3,4,5,6";
-    std::map<std::string, int> map;
-    map["AGAT"] = 1;
-    map["TAGC"] = 2;
-    map["AACT"] = 3;
-    map["GACA"] = 4;
-    map["CCTG"] = 5;
-    map["ATGC"] = 6;
-    Person p = Person(map, "Michael");
-    Person generatedPerson = CSVReader::get_person(line, strs);
-    if (p.get_name() != generatedPerson.get_name())
-        FAIL("CSVReader -- get_person fails to set name properly");
-    if (p.get_values() != generatedPerson.get_values())
-        FAIL("CSVReader -- get_person fails to set value map properly");
+
+TEST_CASE("PersonCollector parses the correct names", "[personcollector-names][weight=1]") {
+    std::vector<std::string> names = {"Parth", "Daniel", "Michael"};
+    PersonCollector collector = PersonCollector("tests/tests_part1_1.csv");
+
+    for (size_t i = 0; i < collector.get_persons().size(); i++) {
+        if (collector.get_persons()[i].get_name() != names[i])
+            FAIL("PersonCollector does not parse Names properly");
+    }
     REQUIRE(true);
 }
 
-TEST_CASE("CSVReader process_file works", "[weight=1]") {
+TEST_CASE("Simple PersonCollector Works", "[personcollector-works-simple][weight=1]") {
     std::vector<std::string> strs = {"AGTC","TGCA","TGCT","GCAT","GGAT"};
     std::vector<std::string> names = {"Parth", "Daniel", "Michael"};
-    int counter = 1;
-    std::vector<Person> desired_result;
 
+    std::vector<Person> desired_result;
+    int counter = 1;
     for (const std::string & name : names) {
         std::map<std::string, int> map;
         for (size_t i  = 0; i < strs.size(); i++) {
@@ -50,19 +35,23 @@ TEST_CASE("CSVReader process_file works", "[weight=1]") {
         }
         desired_result.push_back(Person(map, name));
         counter++;
-    } 
+    }
 
-    std::vector<Person> result = CSVReader::process_file("tests/tests_part1_1.csv");
-    for (size_t i = 0; i < names.size(); i++) {
+    PersonCollector collector = PersonCollector("tests/tests_part1_1.csv");
+    std::vector<Person> result = collector.get_persons();
+
+    for (size_t i = 0; i < result.size(); i++) {
         if (result[i].get_name() != desired_result[i].get_name())
-            FAIL("CSVReader -- process_file fails to read name properly");
-        if (result[i].get_values() != desired_result[i].get_values()) 
-            FAIL("CSVReader -- process_file fails to read STR values properly");
+            FAIL("PersonCollector -- fails to read name properly");
+        for (size_t j = 0; j < strs.size(); j++) {
+            if (result[i].get_values(strs[j]) != desired_result[i].get_values(strs[j]))
+                FAIL("PersonCollector -- fails to read STR values properly");
+        }
     }
     REQUIRE(true);
 }
 
-TEST_CASE("CSVReader process_file works 2", "[weight=1]") {
+TEST_CASE("Complex PersonCollector Works", "[personcollector-works-complex][weight=1]") {
     std::vector<std::string> strs = {"AGTC","TGCA","TGCT","GCAT","GGAT","CCAT","CGAT","ATGG","ATCG","CCCC","AAAG","TTGA","TCTC","CAAT","AATC"};
     std::vector<std::string> names = {"Parth", "Daniel", "Michael", "John", "Ben"};
     int counter = 1;
@@ -77,17 +66,19 @@ TEST_CASE("CSVReader process_file works 2", "[weight=1]") {
         counter++;
     } 
 
-    std::vector<Person> result = CSVReader::process_file("tests/tests_part1_2.csv");
+    std::vector<Person> result = PersonCollector("tests/tests_part1_2.csv").get_persons();
     for (size_t i = 0; i < names.size(); i++) {
         if (result[i].get_name() != desired_result[i].get_name())
-            FAIL("CSVReader -- process_file fails to read name properly");
-        if (result[i].get_values() != desired_result[i].get_values()) 
-            FAIL("CSVReader -- process_file fails to read STR values properly");
+            FAIL("PersonCollector -- fails to read name properly");
+        for (size_t j = 0; j < strs.size(); j++) {
+            if (result[i].get_values(strs[j]) != desired_result[i].get_values(strs[j]))
+                FAIL("PersonCollector -- fails to read STR values properly");
+        }
     }
     REQUIRE(true);
 }
 
-
+/**
 TEST_CASE("Basic Person object works", "[weight=1]") {
     std::map<std::string, int> values;
     values["AGAT"] = 5;
@@ -201,6 +192,8 @@ TEST_CASE("Analysis -- basic find_count works", "[weight=1]") {
     } 
     REQUIRE(analysis.find_count(sequence) == result);
 }
+
+**/
 
 // TEST_CASE("Analysis -- basic find_count 2 works", "[weight=1]") {
 //     std::vector<std::string> strs = {"ACAT", "AGAT", "CCGT"};
